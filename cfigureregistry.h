@@ -5,7 +5,7 @@
 #include <string>
 #include <iostream>
 #include <map>
-#include <typeinfo.h>
+#include <typeinfo>
 #include <memory>
 
 #define DECLARE_FIGURE \
