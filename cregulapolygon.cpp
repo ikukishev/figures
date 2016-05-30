@@ -1,14 +1,12 @@
 #include "cregulapolygon.h"
 
-CRegulaPolygon::CRegulaPolygon(): CPolygon() {}
-
 CRegulaPolygon::CRegulaPolygon(double radius, int countAngles, const std::string &name)
     : CPolygon(countAngles, name)
 {
-    double ang=0;
+    double ang=0, dAngle=360.0/countAngles;
     for(int i(0); i<countAngles; i++)
     {
-        ang+=360.0/countAngles;
+        ang+=dAngle;
         (*this)[i].x=radius*cos(ang*PI/180.0);
         (*this)[i].y=radius*sin(ang*PI/180.0);
     }

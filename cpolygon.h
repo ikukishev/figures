@@ -7,6 +7,8 @@
 #include <string>
 #include <cmath>
 
+#define PI 3.14159265
+
 using std::vector;
 using std::string;
 using glm::vec2;
@@ -16,7 +18,6 @@ typedef unsigned int Uint;
 class CPolygon
 {
 public:
-    CPolygon(): mAngles(vector<vec2>(0)), mName("None") {}
 
     CPolygon(Uint countAngles, const string& name): mName(name)
     {
@@ -38,6 +39,8 @@ public:
     virtual double perimeter () const = 0;
 
 private:
+    CPolygon();
+
     vector<vec2> mAngles;
     string mName;
 
