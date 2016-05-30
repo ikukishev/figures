@@ -12,6 +12,9 @@ public:
     CRegulaPolygon(double radius, int countAngles, const string& name);
 
     // CPolygon interface
+
+    virtual QJsonObject toJSON() const {}
+
     virtual double area() const ;
     virtual double perimeter() const;
 

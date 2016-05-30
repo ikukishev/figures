@@ -11,8 +11,9 @@ public:
 
     CTriangle( const glm::vec2& pointA, const glm::vec2& pointB, const glm::vec2& pointC, const std::string& name);
 
-    virtual double perimeter () const;
+    virtual QJsonObject toJSON() const {}
 
+    virtual double perimeter () const;    
     virtual double area() const;
 };
 

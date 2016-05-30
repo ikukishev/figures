@@ -10,7 +10,7 @@
 
 #define DECLARE_FIGURE \
 public: \
-    virtual const std::string type() { return __static_type_name__; } \
+    virtual const std::string type() const { return __static_type_name__; } \
 private: \
     static std::string __static_type_name__;
 
@@ -68,9 +68,9 @@ public:
     template<typename T>
     static std::string registerLoad()
     {
-        tFigPointer<T>::tLoader loader = T::load;
+        typename tFigPointer<T>::tLoader loader = T::load;
 
-        const type_info& typeInfo = typeid(T);
+        const std::type_info& typeInfo = typeid(T);
         std::string name( typeInfo.name() );
         std::map< std::string, void* >::iterator it = sPointers.find(name);
         if (it == sPointers.end() )

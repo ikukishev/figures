@@ -6,6 +6,8 @@
 #include <vector>
 #include <string>
 #include <cmath>
+#include <QJsonObject>
+#include <cfigureregistry.h>
 
 #define PI 3.14159265
 
@@ -31,6 +33,8 @@ public:
     virtual string getName() const {return mName;}
     virtual void setName(const string& name) { mName=name;}
 
+    virtual QJsonObject toJSON() const = 0;
+    virtual const string type() const {return "class CPolygon";}
 
     virtual vec2& operator[] (Uint index) {return mAngles[index];}
     virtual const vec2& operator[](Uint index) const {return mAngles[index];}
