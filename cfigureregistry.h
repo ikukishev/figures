@@ -5,7 +5,7 @@
 #include <string>
 #include <iostream>
 #include <map>
-#include <typeinfo.h>
+#include <typeinfo>
 #include <memory>
 
 #define DECLARE_FIGURE \
@@ -68,9 +68,9 @@ public:
     template<typename T>
     static std::string registerLoad()
     {
-        tFigPointer<T>::tLoader loader = T::load;
+        typename tFigPointer<T>::tLoader loader = T::load;
 
-        const type_info& typeInfo = typeid(T);
+        const std::type_info& typeInfo = typeid(T);
         std::string name( typeInfo.name() );
         std::map< std::string, void* >::iterator it = sPointers.find(name);
         if (it == sPointers.end() )
