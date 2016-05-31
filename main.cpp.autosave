@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 
     CRectangle rect(vec2(0,0), 5, 5, "name");
     CTriangle tria(glm::vec2(0,0), vec2(0,1), vec2(1,0), "triangle");
-    CRegulaPolygon pol(4, 4, "rect");
+    CRegulaPolygon pol(1, 4, "rect");
     //CPolygon
 
     //qDebug() << round(rect[0].x*10)/10 << round(rect[0].y*10)/10;

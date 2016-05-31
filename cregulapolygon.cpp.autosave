@@ -24,7 +24,9 @@ std::shared_ptr<CRegulaPolygon> CRegulaPolygon::load(const QJsonObject &object)
 QJsonObject CRegulaPolygon::toJSON() const
 {
    QJsonObject obj;
-
+   obj.insert("radius", getRadius());
+   obj.insert("name", QString::fromStdString(getName()));
+   
 }
 
 double CRegulaPolygon::getRadius() const

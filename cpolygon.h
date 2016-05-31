@@ -19,6 +19,7 @@ typedef unsigned int Uint;
 
 class CPolygon
 {
+
 public:
 
     CPolygon(Uint countAngles, const string& name): mName(name)
