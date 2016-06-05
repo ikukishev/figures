@@ -3,6 +3,14 @@
 
 REGISTER_FIGURE(CRectangle)
 
+inline bool printRect()
+{
+    std::cout<<"rect" << " ";
+    return true;
+}
+
+bool s=printRect();
+
 CRectangle::CRectangle(glm::vec2 downLeftAngle, double length, double width, const std::string &name)
    : CPolygon(4, name)
 {

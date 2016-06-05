@@ -2,6 +2,13 @@
 #include <QJsonArray>
 
 REGISTER_FIGURE(CTriangle)
+inline bool printCTriangle()
+{
+    std::cout<<"CTriangle" << " ";
+    return true;
+}
+
+bool ssssssss= printCTriangle();
 
 CTriangle::CTriangle(const glm::vec2 &pointA, const glm::vec2 &pointB, const glm::vec2 &pointC, const std::string &name)
    : CPolygon(3, name)
@@ -31,6 +38,9 @@ std::shared_ptr<CTriangle> CTriangle::load(const QJsonObject &object)
 {
   // QJsonObject::iterator it = object.find(QString::fromStdString( __static_type_name__));
    if(object.find("type") == object.end())
+      return nullptr;
+
+   if(object.find("type").value().toString().toStdString() != __static_type_name__ )
       return nullptr;
 
    if(object.find("name") == object.end())

@@ -22,23 +22,22 @@ class CPolygon
 
 public:
 
-    CPolygon(Uint countAngles, const string& name): mName(name)
-    {
-        mAngles = vector<vec2>(countAngles);
-    }
+    CPolygon(Uint countAngles, const string& name);
 
-    virtual ~CPolygon() {}
+    virtual ~CPolygon();
 
-    virtual Uint countAngles() const {return mAngles.size();}
+    virtual Uint countAngles() const;
 
-    virtual string getName() const {return mName;}
-    virtual void setName(const string& name) { mName=name;}
+    virtual string getName() const;
+    virtual void setName(const string& name);
 
     virtual QJsonObject toJSON() const = 0;
-    virtual const string type() const {return "class CPolygon";}
+    virtual const string type() const;
 
-    virtual vec2& operator[] (Uint index) {return mAngles[index];}
-    virtual const vec2& operator[](Uint index) const {return mAngles[index];}
+    virtual glm::vec3 toVec3(Uint index) const;
+
+    virtual vec2& operator[] (Uint index);
+    virtual const vec2& operator[](Uint index) const;
 
     virtual double area() const = 0;
     virtual double perimeter () const = 0;
@@ -50,10 +49,7 @@ private:
     string mName;
 
 protected:
-    double distance(const vec2& a, const vec2& b) const
-    {
-       return sqrt((b.x-a.x)*(b.x-a.x)+(b.y-a.y)*(b.y-a.y));
-    }
+    double distance(const vec2& a, const vec2& b) const;
 
 };
 

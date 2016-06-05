@@ -60,7 +60,9 @@ private:
     CFigureRegistry(const CFigureRegistry&);
     ~CFigureRegistry();
 
-    static std::map<std::string, void*> sPointers;
+    static std::map<std::string, void*> *sPointers;
+
+    static bool insert(const std::string& name, void* pLoad);
 
 public:
 
@@ -72,12 +74,16 @@ public:
 
         const std::type_info& typeInfo = typeid(T);
         std::string name( typeInfo.name() );
+        /*
         std::map< std::string, void* >::iterator it = sPointers.find(name);
         if (it == sPointers.end() )
         {
-            sPointers[ name ] = (void*) loader; //static_cast<tLoader>( T::load );
-            std::cout << __FUNCTION__ << " : " << name << std::endl;
+            //sPointers[ name ] = (void*)(loader); //static_cast<tLoader>( T::load );
+            //std::cout << __FUNCTION__ << " : " << name << std::endl;
+            sPointers.insert(std::pair<std::string, void*>(name, (void*)(loader)));
         }
+        */
+        insert(name, (void*)(loader));
 
         return name;
     }
@@ -85,10 +91,17 @@ public:
     template<class T>
     static tFigPointer<T> get(const std::string& name)
     {
-        auto it = sPointers.find(name);
-        if (it != sPointers.end() )
+        typedef typename tFigPointer<T>::tLoader loader;
+
+        if (sPointers == 0)
         {
-            return tFigPointer<T>((tFigPointer<T>::tLoader)(*it).second);
+            return tFigPointer<T>();
+        }
+
+        auto it = sPointers->find(name);
+        if (it != sPointers->end() )
+        {
+            return tFigPointer<T>((loader)(*it).second);
         }
         else
         {

@@ -8,7 +8,7 @@ class CRectangle: public CPolygon
 
    DECLARE_FIGURE
 private:
-   CRectangle();
+    CRectangle();
 public:
     CRectangle(vec2 downLeftAngle, double length, double width, const string& name);
 
