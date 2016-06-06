@@ -3,7 +3,7 @@
 REGISTER_FIGURE(CDodecahedron)
 inline bool printCDodecahedron()
 {
-    std::cout<<"CDodecahedron" << " ";
+    std::cout<<"//CDodecahedron" << " ";
     return true;
 }
 
@@ -12,14 +12,14 @@ bool sss= printCDodecahedron();
 CDodecahedron::CPlaneOfSymmetry::CPlaneOfSymmetry(const CRegulaPolygon &pentagon)
 {
     double plenghtMinFacet=distanceSymm(pentagon[0], pentagon[1]); // ?
-    std::cout << plenghtMinFacet << " ";
+    //std::cout << plenghtMinFacet << " ";
     double plenghtPerpendicular = distanceSymm(glm::vec2( (pentagon[3].x+pentagon[4].x)/2, (pentagon[3].y+pentagon[4].y)/2 ), pentagon[1]);//c
-    std::cout << plenghtPerpendicular << " ";
+    //std::cout << plenghtPerpendicular << " ";
 
     double sMaxLenghtDiagonal=sqrt(2*plenghtPerpendicular*plenghtPerpendicular*(1-cos(116.565*PI/180.0))); //a
-    std::cout << sMaxLenghtDiagonal << " ";
+    //std::cout << sMaxLenghtDiagonal << " ";
     double sPerpendicularToSML = sqrt(plenghtPerpendicular*plenghtPerpendicular-(plenghtPerpendicular/2.0)*(plenghtPerpendicular/2.0)); // F
-    std::cout << sPerpendicularToSML << " ";
+    //std::cout << sPerpendicularToSML << " ";
     //double sMinDiagonal=2*sPerpendicularToSML+plenghtMinFacet; // L
 
     vector<glm::vec2>points=vector<glm::vec2>(6);
@@ -112,9 +112,27 @@ CDodecahedron::CDodecahedron(double lenght, const std::string &name)
 
 std::shared_ptr<CDodecahedron> CDodecahedron::load(const QJsonObject &object)
 {
-    string type = object.find("type").value().toString().toStdString();
+    if(object.find("type") == object.end())
+       return nullptr;
+    if(object.find("type").value().toString() != QString::fromStdString(__static_type_name__))
+       return nullptr;
+
+    if(object.find("lenght") == object.end())
+        return nullptr;
+
+    if(!object.find("lenght").value().isDouble())
+        return nullptr;
+
     double lenght = object.find("lenght").value().toDouble();
-    string name = object.find("name").value().toString().toStdString();
+
+    if(object.find("name") == object.end())
+        return nullptr;
+
+    if(!object.find("name").value().isString())
+        return nullptr;
+
+    std::string name = object.find("name").value().toString().toStdString();
+
     return std::shared_ptr<CDodecahedron>(new CDodecahedron(lenght, name));
 }
 
@@ -136,6 +154,9 @@ glm::vec3 CDodecahedron::operator [](Uint index) const
 QJsonObject CDodecahedron::toJSON() const
 {
     QJsonObject obj;
+    obj.insert("name", QString::fromStdString(getName()));
+    obj.insert("type", QString::fromStdString(type()));
+    obj.insert("lenght", mLenght);
     return obj;
 }
 

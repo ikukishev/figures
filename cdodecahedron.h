@@ -31,23 +31,21 @@ private:
     vector<glm::vec3> mPoints;
 
 public:
-
     CDodecahedron(double lenght, const std::string& name);
     static std::shared_ptr<CDodecahedron> load(const QJsonObject& object);
-    // CFigure interface
-public:
-    double surfaceArea() const;
-    double volume() const;
-    glm::vec3 operator [](Uint index) const;
-    QJsonObject toJSON() const;
-    Uint countVertex() const;
-    Uint countEdge() const;
-    Uint countFacets() const;
+
+    virtual double surfaceArea() const;
+    virtual double volume() const;
+    virtual glm::vec3 operator [](Uint index) const;
+    virtual QJsonObject toJSON() const;
+    virtual Uint countVertex() const;
+    virtual Uint countEdge() const;
+    virtual Uint countFacets() const;
 
     double getLenght() const;
 
 protected:
-    glm::vec3 getCalculatedVertex(Uint index) const;
+    virtual glm::vec3 getCalculatedVertex(Uint index) const;
 };
 
 #endif // CDODECAHEDRON_H

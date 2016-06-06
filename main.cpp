@@ -7,6 +7,7 @@
 #include "cprism.h"
 #include "cdodecahedron.h"
 #include <QJsonDocument>
+#include "ccomplexfigure.h"
 #include <QFile>
 #include <iostream>
 
@@ -30,20 +31,33 @@ int main(int argc, char *argv[])
     QJsonDocument doc;
     doc.setObject(regPol.toJSON());
 
-    //std::shared_ptr<CPolygon> pl = regPol.load(doc.object());
+    std::shared_ptr<CPolygon> pl = regPol.load(doc.object());
 
-//    CPyramid cp(5, pl, "piramid");
-//    CPrism prism(pl, 5, "prism");
+    CPyramid cp(5, pl, "piramid");
+    CPrism prism(pl, 5, "prism");
+    prism.setHeight(10);
+    QJsonDocument doc1;
+    doc1.setObject(cp.toJSON());
 
-//    QJsonDocument doc1;
-//    doc1.setObject(cp.toJSON());
+    CRegulaPolygon reg(vec2(0,0), 0, 1, 5, "reg");
+    CDodecahedron dod(5, "dod");
+    //glm::rotate()
 
-//    CRegulaPolygon reg(vec2(0,0), 0, 1, 5, "reg");
-//    CDodecahedron dod(5, "dod");
-//    //glm::rotate()
-//    std::cout<< " " << dod.volume() << " "<< dod.getLenght();
+    CComplexFigure list("list");
 
-//    saveJson(doc1, "prism.json");
+    list.addFigure(prism.load(prism.toJSON()));
+    list.addFigure(cp.load(cp.toJSON()));
+    list.addFigure(dod.load(dod.toJSON()));
+    //list.addFigure(list.load(list.toJSON()));
+    //list.deleteFigure(1);
+
+    std::shared_ptr<CComplexFigure> l = list.load(list.toJSON());
+
+    QJsonDocument doc2;
+    doc2.setObject(l->toJSON());
+    std::cout<< " " << dod.volume() << " "<< dod.getLenght();
+
+    saveJson(doc2, "list.json");
 
 
 

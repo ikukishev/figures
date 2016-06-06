@@ -5,7 +5,7 @@ REGISTER_FIGURE(CRegulaPolygon)
 
 inline bool printCRegulaPolygon()
 {
-    std::cout<<"CRegulaPolygon" << " ";
+    std::cout<<"//CRegulaPolygon" << " ";
     return true;
 }
 

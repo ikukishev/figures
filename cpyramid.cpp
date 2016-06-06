@@ -7,7 +7,7 @@ REGISTER_FIGURE(CPyramid)
 
 inline bool printCPyramid()
 {
-    std::cout<<"CPyramid" << " ";
+    std::cout<<"//CPyramid" << " ";
     return true;
 }
 
@@ -53,7 +53,39 @@ QJsonObject CPyramid::toJSON() const
 
 std::shared_ptr<CPyramid> CPyramid::load(const QJsonObject &object)
 {
-    return nullptr;
+    if(object.find("type") == object.end())
+        return nullptr;
+    if(object.find("type").value().toString().toStdString() != __static_type_name__)
+        return nullptr;
+
+    if(object.find("basis") == object.end())
+        return nullptr;
+
+    if(!object.find("basis").value().isObject())
+        return nullptr;
+
+    std::shared_ptr<CPolygon> basis = CFigureRegistry::get<CPolygon>( object.find("basis").value().toObject()["type"].toString().toStdString() )( object.find("basis").value().toObject() );
+
+    if(basis == nullptr)
+        return nullptr;
+
+    if(object.find("height") == object.end())
+        return nullptr;
+
+    if(!object.find("height").value().isDouble())
+        return nullptr;
+
+    double height = object.find("height").value().toDouble();
+
+    if(object.find("name") == object.end())
+        return nullptr;
+
+    if(!object.find("name").value().isString())
+        return nullptr;
+
+    std::string name = object.find("name").value().toString().toStdString();
+
+    return std::shared_ptr<CPyramid>(new CPyramid(height, basis, name));
 }
 
 Uint CPyramid::countVertex() const {return getBasis()->countAngles()+1;}

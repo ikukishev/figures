@@ -5,7 +5,7 @@ REGISTER_FIGURE(CRectangle)
 
 inline bool printRect()
 {
-    std::cout<<"rect" << " ";
+    std::cout<<"//rect" << " ";
     return true;
 }
 
@@ -42,7 +42,6 @@ QJsonObject CRectangle::toJSON() const
 
 std::shared_ptr<CRectangle> CRectangle::load(const QJsonObject &object)
 {
-  // QJsonObject::iterator it(object.find("type"));
    if(object.find("type") == object.end())
       return nullptr;
    if(object.find("type").value().toString() != QString::fromStdString(__static_type_name__))
@@ -53,7 +52,6 @@ std::shared_ptr<CRectangle> CRectangle::load(const QJsonObject &object)
    double width;
    string name;
 
-   //it = object.find("downLeftAngle");
    if(object.find("type") == object.end() )
       return nullptr;
    if(!object.find("type").value().isString() )
@@ -68,7 +66,6 @@ std::shared_ptr<CRectangle> CRectangle::load(const QJsonObject &object)
    dLA.x=arr[0].toDouble();
    dLA.y=arr[1].toDouble();
 
-   //it = object.find("length");
    if(object.find("length") == object.end())
       return nullptr;
 
@@ -77,7 +74,6 @@ std::shared_ptr<CRectangle> CRectangle::load(const QJsonObject &object)
 
    length=object.find("length").value().toDouble();
 
-   //it = object.find("width");
    if(object.find("width") == object.end())
       return nullptr;
 
@@ -86,7 +82,6 @@ std::shared_ptr<CRectangle> CRectangle::load(const QJsonObject &object)
 
    width=object.find("width").value().toDouble();
 
-   //it = object.find("name");
    if(object.find("name") == object.end())
       return nullptr;
 
@@ -94,7 +89,6 @@ std::shared_ptr<CRectangle> CRectangle::load(const QJsonObject &object)
       return nullptr;
 
    name=object.find("name").value().toString().toStdString();
-
 
    return std::shared_ptr<CRectangle>(new CRectangle(dLA, length, width, name));
 }

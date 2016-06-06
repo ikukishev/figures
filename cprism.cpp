@@ -4,7 +4,7 @@ REGISTER_FIGURE(CPrism)
 
 inline bool printCPrism()
 {
-    std::cout<<"CPrism" << " ";
+    std::cout<<"//CPrism" << " ";
     return true;
 }
 
@@ -36,7 +36,8 @@ double CPrism::volume() const
 QJsonObject CPrism::toJSON() const
 {
     QJsonObject obj;
-    obj.insert("basis",getBasis()->toJSON());
+    obj.insert("type", QString::fromStdString(type()));
+    obj.insert("basis", getBasis()->toJSON());
     obj.insert("height", mHeight);
     obj.insert("name", QString::fromStdString(getName()));
     return obj;
@@ -72,6 +73,40 @@ void CPrism::setHeight(double height)
 
 std::shared_ptr<CPrism> CPrism::load(const QJsonObject &object)
 {
-    return nullptr;
+    if(object.find("type") == object.end())
+       return nullptr;
+
+    if(object.find("type").value().toString() != QString::fromStdString(__static_type_name__))
+       return nullptr;
+
+    if(object.find("basis")==object.end())
+        return nullptr;
+
+    if(!object.find("basis").value().isObject())
+        return nullptr;
+
+    std::shared_ptr<CPolygon> basis = CFigureRegistry::get<CPolygon>(object.find("basis").value().toObject()["type"].toString().toStdString())(object.find("basis").value().toObject());
+
+    if(basis == nullptr)
+        return nullptr;
+
+    if(object.find("height") == object.end())
+        return nullptr;
+
+    if(!object.find("height").value().isDouble())
+        return nullptr;
+
+    double height = object.find("height").value().toDouble();
+
+
+    if(object.find("name") == object.end())
+        return nullptr;
+
+    if(!object.find("name").value().isString())
+        return nullptr;
+
+    std::string name = object.find("name").value().toString().toStdString();
+
+    return std::shared_ptr<CPrism>(new CPrism(basis, height, name));
 }
 

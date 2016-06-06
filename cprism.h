@@ -9,21 +9,21 @@ class CPrism: public CFigure
 public:
     CPrism(std::shared_ptr<CPolygon> basis, double height, std::string name);
 
-    double surfaceArea() const;
-    double volume() const;
+    virtual double surfaceArea() const;
+    virtual double volume() const;
 
-    QJsonObject toJSON() const;
+    virtual QJsonObject toJSON() const;
 
-    Uint countVertex() const;
-    Uint countEdge() const;
-    Uint countFacets() const;
+    virtual Uint countVertex() const;
+    virtual Uint countEdge() const;
+    virtual Uint countFacets() const;
 
     double getHeight() const;
     void setHeight(double height);
     static std::shared_ptr<CPrism> load(const QJsonObject& object);
 
 protected:
-    glm::vec3 getCalculatedVertex(Uint index) const;
+    virtual glm::vec3 getCalculatedVertex(Uint index) const;
 
 private:
     double mHeight;

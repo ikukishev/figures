@@ -2,9 +2,10 @@
 #include <QJsonArray>
 
 REGISTER_FIGURE(CTriangle)
+
 inline bool printCTriangle()
 {
-    std::cout<<"CTriangle" << " ";
+    std::cout<<"//CTriangle" << " ";
     return true;
 }
 
