@@ -9,7 +9,9 @@
 #include <QJsonDocument>
 #include "ccomplexfigure.h"
 #include <QFile>
+#include <QLabel>
 #include <iostream>
+#include <cfigureparser.h>
 
 
 using std::cout;
@@ -20,9 +22,18 @@ void saveJson(QJsonDocument document, QString fileName) {
     jsonFile.write(document.toJson());
 }
 
+string jsonToString(const QJsonObject& obj)
+{
+    QJsonDocument doc;
+    doc.setObject(obj);
+    return doc.toBinaryData().toStdString();
+}
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    QLabel lb;
 
     CRectangle rect(vec2(0,0), 5, 5, "name");
     CTriangle tria(glm::vec2(0,0), vec2(0,1), vec2(1,0), "triangle");
@@ -48,16 +59,13 @@ int main(int argc, char *argv[])
     list.addFigure(prism.load(prism.toJSON()));
     list.addFigure(cp.load(cp.toJSON()));
     list.addFigure(dod.load(dod.toJSON()));
-    //list.addFigure(list.load(list.toJSON()));
-    //list.deleteFigure(1);
 
-    std::shared_ptr<CComplexFigure> l = list.load(list.toJSON());
+    CFigureParser parser("file.json");
+    parser.save(list.toJSON());
 
-    QJsonDocument doc2;
-    doc2.setObject(l->toJSON());
-    std::cout<< " " << dod.volume() << " "<< dod.getLenght();
-
-    saveJson(doc2, "list.json");
+    QJsonDocument document;
+    document.setObject(parser.getJSON());
+    saveJson(document, "testParser.json");
 
 
 
