@@ -29,6 +29,12 @@ string jsonToString(const QJsonObject& obj)
     return doc.toBinaryData().toStdString();
 }
 
+QJsonDocument loadJson(QString fileName) {
+    QFile jsonFile(fileName);
+    jsonFile.open(QFile::ReadOnly);
+    return QJsonDocument().fromJson(jsonFile.readAll());
+}
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -64,10 +70,9 @@ int main(int argc, char *argv[])
     parser.save(list.toJSON());
 
     QJsonDocument document;
-    document.setObject(parser.getJSON());
+    std::shared_ptr<CFigure> fig = parser.getObject(dod.toJSON());
+    document.setObject(fig->toJSON());
     saveJson(document, "testParser.json");
-
-
 
     return 0;
 }

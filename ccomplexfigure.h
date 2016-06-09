@@ -21,7 +21,7 @@ private:
     virtual Uint countVertex() const;
     virtual Uint countEdge() const;
     virtual Uint countFacets() const;
-    // CFigure interface
+
     virtual double surfaceArea() const;
     virtual double volume() const;
 

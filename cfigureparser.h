@@ -14,6 +14,7 @@ public:
     QJsonObject getJSON();
 
     std::shared_ptr<CFigure> getObject();
+    std::shared_ptr<CFigure> getObject(const QJsonObject& obj );
 
     string getNameFile() const;
     void setNameFile(const string &nameFile);

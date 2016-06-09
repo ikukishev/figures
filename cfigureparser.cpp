@@ -7,12 +7,12 @@ CFigureParser::CFigureParser(const std::string &name)
 {}
 
 CFigureParser::CFigureParser()
-    : mNameFile("none")
+    : mNameFile("")
 {}
 
 bool CFigureParser::save(const QJsonObject &obj)
 {
-    if(mNameFile!="none")
+    if(mNameFile!="")
     {
         QJsonDocument doc;
         doc.setObject(obj);
@@ -31,26 +31,37 @@ QJsonObject CFigureParser::getJSON()
 {
 
     QJsonObject obj;
-    if(mNameFile!="none")
+    if(mNameFile!="")
     {
         QFile jsonFile(QString::fromStdString(mNameFile));
+        QJsonDocument doc;
 
         jsonFile.open(QFile::ReadOnly);
 
-        QJsonDocument doc;
-        doc.fromJson(jsonFile.readAll());
+        obj=doc.fromJson(jsonFile.readAll()).object();
         jsonFile.close();
-        obj=doc.object();
     }
     return obj;
 }
 
 std::shared_ptr<CFigure> CFigureParser::getObject()
 {
-    if(!getJSON().isEmpty())
+    if(getJSON().isEmpty())
         return nullptr;
 
-    std::shared_ptr<CFigure> figure = CFigureRegistry::get<CFigure>( getJSON()["type"].toString().toStdString() )(getJSON());
+    std::shared_ptr<CFigure> figure = CFigureRegistry::get<CFigure>( getJSON().find("type").value().toString().toStdString() )( getJSON() );
+    return figure;
+}
+
+std::shared_ptr<CFigure> CFigureParser::getObject(const QJsonObject& obj)
+{
+    if(obj.find("type") == obj.end())
+        return nullptr;
+
+    if(!obj.find("type").value().isString())
+        return nullptr;
+
+    std::shared_ptr<CFigure> figure = CFigureRegistry::get<CFigure>( obj.find("type").value().toString().toStdString() )(obj);
     return figure;
 }
 
