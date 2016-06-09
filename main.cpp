@@ -39,8 +39,6 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    QLabel lb;
-
     CRectangle rect(vec2(0,0), 5, 5, "name");
     CTriangle tria(glm::vec2(0,0), vec2(0,1), vec2(1,0), "triangle");
 
@@ -74,7 +72,10 @@ int main(int argc, char *argv[])
     document.setObject(fig->toJSON());
     saveJson(document, "testParser.json");
 
-    return 0;
+    MainWindow m;
+    m.show();
+
+    return a.exec();
 }
 
 

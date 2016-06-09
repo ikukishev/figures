@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AboutDialog</class>
+ <widget class="QDialog" name="AboutDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>497</width>
+    <height>229</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>497</width>
+    <height>229</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>497</width>
+    <height>229</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>30</y>
+     <width>151</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Курсовая работа</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>43</x>
+     <y>82</y>
+     <width>161</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>на тему: &quot;Многогранники&quot;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>42</x>
+     <y>60</y>
+     <width>391</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>с дисциплины &quot;Объектно ориентированое программирование&quot;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>43</x>
+     <y>101</y>
+     <width>421</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>выполнил: студент 1-го курса, 1-ой группы, ИМЭМ ОНУ им. Мечникова</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>125</y>
+     <width>351</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Кукишев Алексей Алексеевич</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>188</y>
+     <width>91</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Одесса - 2016</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
