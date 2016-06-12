@@ -62,15 +62,20 @@ std::shared_ptr<CComplexFigure> CComplexFigure::load(const QJsonObject &object)
     return std::shared_ptr<CComplexFigure>(new CComplexFigure(list));
 }
 
-void CComplexFigure::addFigure(std::shared_ptr<CFigure> figure)
+bool CComplexFigure::addFigure(std::shared_ptr<CFigure> figure)
 {
+    for(uint i(0); i<countFigures(); i++)
+        if(figure->getName() == mFigures[i]->getName()) return 0;
+
     mFigures.push_back(figure);
+    return 1;
 }
 
-void CComplexFigure::deleteFigure(uint pos)
+bool CComplexFigure::deleteFigure(uint pos)
 {
-    //std::vector<std::shared_ptr<CFigure>>::iterator it = mFigures.;
+    if(pos >= countFigures()) return 0;
     mFigures.erase(mFigures.begin()+pos);
+    return 1;
 }
 
 
@@ -93,9 +98,11 @@ QJsonObject CComplexFigure::toJSON() const
     return obj;
 }
 
-void CComplexFigure::replaceFigure(uint index, std::shared_ptr<CFigure> figure)
+bool CComplexFigure::replaceFigure(uint index, std::shared_ptr<CFigure> figure)
 {
+    if(index>=countFigures()) return 0;
     mFigures[index]=figure;
+    return 1;
 }
 
 Uint CComplexFigure::countVertex() const {return 0;}

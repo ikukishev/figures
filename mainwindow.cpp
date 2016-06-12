@@ -9,6 +9,7 @@
 #include <QContextMenuEvent>
 #include <QDebug>
 #include <cfigure.h>
+#include <ccomplexfigure.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -16,12 +17,13 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+
     mMenuList = new QMenu(this);
 
     editAction = mMenuList->addAction("Edit");
     QAction* addAction = mMenuList->addAction("Add");
     QAction* deleteAction = mMenuList->addAction("Delete");
-
+    editAction->setVisible(0);
     connect(editAction, SIGNAL(triggered() ), this, SLOT(editFigureDialog()));
     connect(addAction, SIGNAL(triggered() ), this, SLOT(addFigureDialog()));
     connect(deleteAction, SIGNAL(triggered() ), this, SLOT(deleteFigureAction()));
@@ -43,10 +45,11 @@ MainWindow::MainWindow(QWidget *parent) :
     listHeaders.insert(4, "volume");
     listHeaders.insert(5, "surface area");
 
-    lh.insert(0, "figure");
+    lh.insert(1, "property value");
 
     ui->tableWidget->setVerticalHeaderLabels(listHeaders);
     ui->tableWidget->setHorizontalHeaderLabels(lh);
+    //ui->tableWidget->set
 
     ui->tableWidget->setContextMenuPolicy(Qt::ActionsContextMenu);
 
@@ -65,11 +68,11 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
     {
         if( mMenuList)
         {
-            mMenuList->setActiveAction(editAction);
-            }
-        ui->listWidget->currentItem()->setSelected(0);
+            editAction->setVisible(1);
+        }
     }
     mMenuList->exec(event->globalPos());
+    editAction->setVisible(0);
 }
 
 void MainWindow::on_actionAbout_triggered()
@@ -141,8 +144,6 @@ void MainWindow::editFigureDialog()
 
     if(testing == nullptr) return;
 
-    listFigure.replaceFigure(index, ed.getObjectFigure());
-
     ui->listWidget->currentItem()->setText(QString::fromStdString(listFigure(index)->getName()));
 
     item[0].setText(QString::fromStdString(listFigure(index)->type()));
@@ -165,7 +166,12 @@ void MainWindow::addFigureDialog()
     std::shared_ptr<CFigure> testing=ed.getObjectFigure();
     if(testing == nullptr) return;
 
-    listFigure.addFigure(testing);
+    if(!listFigure.addFigure(testing))
+    {
+
+        ui->statusBar->showMessage("There is Figure with name "+QString::fromStdString(ed.getObjectFigure()->getName())+" already is");
+        return;
+    }
 
     uint index = listFigure.countFigures()-1;
 
@@ -177,28 +183,27 @@ void MainWindow::addFigureDialog()
     item[3].setText(QString::number(listFigure(index)->countVertex()));
     item[4].setText(QString::number(listFigure(index)->volume()));
     item[5].setText(QString::number(listFigure(index)->surfaceArea()));
+
+    ui->statusBar->showMessage("Figure was added");
 }
 
 void MainWindow::deleteFigureAction()
 {
+    QString nameFigure = ui->listWidget->currentItem()->text();
 
-}
+    int index=-1;
+    for(uint i(0); i<listFigure.countFigures();i++)
+        if(listFigure(i)->getName() == nameFigure.toStdString())
+        {
+            index=i;
+        }
 
-void MainWindow::changeTable(uint index)
-{
-    QTableWidgetItem item[6];
+    if(index == -1)
+        return;
 
-        item[0].setText(QString::fromStdString(listFigure(index)->type()));
-        item[1].setText(QString::number(listFigure(index)->countEdge()));
-        item[2].setText(QString::number(listFigure(index)->countFacets()));
-        item[3].setText(QString::number(listFigure(index)->countVertex()));
-        item[4].setText(QString::number(listFigure(index)->volume()));
-        item[5].setText(QString::number(listFigure(index)->surfaceArea()));
+    listFigure.deleteFigure(index);
 
-    for(int i(0); i<6; i++){
-            item[i].setTextAlignment(Qt::AlignCenter);
-            ui->tableWidget->setItem(0,i,&item[i]);
-    }
+    delete ui->listWidget->currentItem();
 }
 
 void MainWindow::on_actionOpen_triggered()
@@ -206,6 +211,12 @@ void MainWindow::on_actionOpen_triggered()
     CFigureParser pars(QFileDialog::getOpenFileName(this, "Open json files", ".//", "*.json").toStdString());
 
     if(pars.getNameFile()=="") return;
+
+    if(pars.getObject()->type() != CComplexFigure().type())
+    {
+        ui->statusBar->showMessage("It isn't list of figures");
+        return ;
+    }
 
     for(uint i(listFigure.countFigures()); i>0; i--)
     listFigure.deleteFigure(i);
@@ -216,4 +227,19 @@ void MainWindow::on_actionOpen_triggered()
     ui->listWidget->clear();
     for(uint i(0); i<listFigure.countFigures(); i++)
     ui->listWidget->addItem(QString::fromStdString(listFigure(i)->getName()));
+
+    ui->statusBar->showMessage("List of figures was added");
+}
+
+void MainWindow::on_actionSave_triggered()
+{
+    CFigureParser pars(QFileDialog::getSaveFileName(this, "Save figures into file", ".//", "*.json").toStdString());
+
+    if(!pars.save(listFigure.toJSON()))
+    {
+        return;
+        ui->statusBar->showMessage("List of figures wasn't saved");
+    }
+
+    ui->statusBar->showMessage("List of figures was saved);
 }

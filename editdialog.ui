@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Edit figure</string>
   </property>
   <property name="modal">
    <bool>false</bool>

@@ -9,16 +9,18 @@ class CComplexFigure: public CFigure
 public:
     CComplexFigure();
     CComplexFigure(const string& name);
-    //CComplexFigure( std::vector<std::shared_ptr<CFigure>> figures);
 
     virtual uint countFigures() const {return mFigures.size();}
 
     static std::shared_ptr<CComplexFigure> load(const QJsonObject& object);
-    void addFigure(std::shared_ptr<CFigure> figure);
-    void deleteFigure(uint pos);
-    std::shared_ptr<CFigure> operator ()(Uint index) const;
     virtual QJsonObject toJSON() const;
-    void replaceFigure(uint index, std::shared_ptr<CFigure> figure);
+
+    bool addFigure(std::shared_ptr<CFigure> figure);
+    bool replaceFigure(uint index, std::shared_ptr<CFigure> figure);
+    bool deleteFigure(uint pos);
+
+    std::shared_ptr<CFigure> operator ()(Uint index) const;
+
 private:
     std::vector<std::shared_ptr<CFigure>> mFigures;
     virtual Uint countVertex() const;

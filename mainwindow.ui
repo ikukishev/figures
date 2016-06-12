@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Figure editor</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -92,22 +92,51 @@
          </property>
          <item>
           <widget class="QTableWidget" name="tableWidget">
+           <property name="styleSheet">
+            <string notr="true">background-color: white;</string>
+           </property>
            <property name="locale">
             <locale language="English" country="UnitedStates"/>
            </property>
-           <property name="rowCount">
-            <number>1</number>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
            </property>
-           <property name="columnCount">
+           <property name="frameShadow">
+            <enum>QFrame::Sunken</enum>
+           </property>
+           <property name="lineWidth">
+            <number>0</number>
+           </property>
+           <property name="midLineWidth">
+            <number>0</number>
+           </property>
+           <property name="editTriggers">
+            <set>QAbstractItemView::NoEditTriggers</set>
+           </property>
+           <property name="textElideMode">
+            <enum>Qt::ElideLeft</enum>
+           </property>
+           <property name="sortingEnabled">
+            <bool>false</bool>
+           </property>
+           <property name="rowCount">
             <number>6</number>
            </property>
+           <property name="columnCount">
+            <number>1</number>
+           </property>
+           <row/>
+           <row/>
+           <row/>
+           <row/>
+           <row/>
            <row/>
            <column/>
-           <column/>
-           <column/>
-           <column/>
-           <column/>
-           <column/>
+           <item row="0" column="0">
+            <property name="text">
+             <string/>
+            </property>
+           </item>
           </widget>
          </item>
         </layout>
@@ -123,7 +152,7 @@
      <x>0</x>
      <y>0</y>
      <width>747</width>
-     <height>18</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
