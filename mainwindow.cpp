@@ -241,5 +241,5 @@ void MainWindow::on_actionSave_triggered()
         ui->statusBar->showMessage("List of figures wasn't saved");
     }
 
-    ui->statusBar->showMessage("List of figures was saved);
+    ui->statusBar->showMessage("List of figures was saved");
 }
