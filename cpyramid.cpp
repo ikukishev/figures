@@ -92,7 +92,7 @@ Uint CPyramid::countVertex() const {return getBasis()->countAngles()+1;}
 
 Uint CPyramid::countEdge() const {return countVertex()*2;}
 
-Uint CPyramid::countFacets() const {return countVertex()+1;}
+Uint CPyramid::countFacets() const {return countVertex();}
 
 double CPyramid::getHeight() const
 {

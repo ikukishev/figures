@@ -18,13 +18,31 @@ SOURCES += main.cpp\
     crectangle.cpp \
     ctriangle.cpp \
     cregulapolygon.cpp \
-    cfigureregistry.cpp
+    cfigureregistry.cpp \
+    aboutdialog.cpp \
+    ccomplexfigure.cpp \
+    cdodecahedron.cpp \
+    cfigure.cpp \
+    cfigureparser.cpp \
+    cprism.cpp \
+    cpyramid.cpp \
+    editdialog.cpp
 
 HEADERS  += mainwindow.h \
     cpolygon.h \
     crectangle.h \
     ctriangle.h \
     cregulapolygon.h \
-    cfigureregistry.h
+    cfigureregistry.h \
+    aboutdialog.h \
+    ccomplexfigure.h \
+    cdodecahedron.h \
+    cfigure.h \
+    cfigureparser.h \
+    cprism.h \
+    cpyramid.h \
+    editdialog.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    aboutdialog.ui \
+    editdialog.ui

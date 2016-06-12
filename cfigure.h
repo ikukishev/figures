@@ -18,7 +18,8 @@ public:
     virtual void setMatrix(const glm::mat4& mat);
     virtual glm::mat4 getMatrix() const;
 
-    virtual glm::vec3 operator[](Uint index) const;
+    virtual glm::vec3 operator[](Uint index) const;    
+    virtual std::shared_ptr<CFigure> operator()(Uint index) const {return nullptr;}
 
     virtual QJsonObject toJSON() const = 0;
     virtual const std::string type() const;
@@ -29,7 +30,7 @@ public:
     virtual Uint countVertex() const= 0;
     virtual Uint countEdge() const = 0; //кол-во ребер
     virtual Uint countFacets() const = 0; //кол-во граней
-
+    virtual Uint countFigures() const {return 0;}
     std::shared_ptr<CPolygon> getBasis() const;
 
 protected:

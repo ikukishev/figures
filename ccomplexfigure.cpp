@@ -3,10 +3,18 @@
 
 REGISTER_FIGURE(CComplexFigure)
 
+CComplexFigure::CComplexFigure()
+    : CFigure(std::shared_ptr<CPolygon>(0), "none")
+{
+    mFigures = std::vector< std::shared_ptr<CFigure> >(0);
+
+}
+
 CComplexFigure::CComplexFigure(const string& name)
     : CFigure(std::shared_ptr<CPolygon>(0), name)
 {
     mFigures = std::vector< std::shared_ptr<CFigure> >(0);
+
 }
 
 
@@ -83,6 +91,11 @@ QJsonObject CComplexFigure::toJSON() const
     obj.insert("figures", arr);
     obj.insert("name", QString::fromStdString(getName()));
     return obj;
+}
+
+void CComplexFigure::replaceFigure(uint index, std::shared_ptr<CFigure> figure)
+{
+    mFigures[index]=figure;
 }
 
 Uint CComplexFigure::countVertex() const {return 0;}
