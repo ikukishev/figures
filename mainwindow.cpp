@@ -71,7 +71,12 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
             editAction->setVisible(1);
         }
     }
-    mMenuList->exec(event->globalPos());
+
+    if(event->y() < ui->listWidget->geometry().height() && event->x() < ui->listWidget->geometry().width())
+    {
+        mMenuList->exec(event->globalPos());
+    }
+
     editAction->setVisible(0);
 }
 
@@ -85,11 +90,6 @@ void MainWindow::on_actionAbout_triggered()
 void MainWindow::on_actionExit_triggered()
 {
     this->close();
-}
-
-void MainWindow::contextMenuFigure()
-{
-
 }
 
 void MainWindow::changeInfoTable()

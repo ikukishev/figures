@@ -30,8 +30,6 @@ private slots:
 
     void on_actionExit_triggered();
 
-    void contextMenuFigure();
-
     void on_actionOpen_triggered();
 
     void on_actionSave_triggered();
