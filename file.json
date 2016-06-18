@@ -1,0 +1,107 @@
+{
+    "figures": [
+        {
+            "basis": {
+                "center": [
+                    0,
+                    0
+                ],
+                "count angles": 4,
+                "name": "regPol",
+                "radius": 1.4142135623730951,
+                "start angle": 45,
+                "type": "14CRegulaPolygon"
+            },
+            "height": 5,
+            "name": "prism",
+            "type": "6CPrism"
+        },
+        {
+            "basis": {
+                "center": [
+                    0,
+                    0
+                ],
+                "count angles": 4,
+                "name": "regPol",
+                "radius": 1.4142135623730951,
+                "start angle": 45,
+                "type": "14CRegulaPolygon"
+            },
+            "height": 5,
+            "name": "prism1",
+            "type": "6CPrism"
+        },
+        {
+            "basis": {
+                "center": [
+                    0,
+                    0
+                ],
+                "count angles": 4,
+                "name": "regPol",
+                "radius": 1.4142135623730951,
+                "start angle": 45,
+                "type": "14CRegulaPolygon"
+            },
+            "height": 5,
+            "name": "prism2",
+            "type": "6CPrism"
+        },
+        {
+            "basis": {
+                "center": [
+                    0,
+                    0
+                ],
+                "count angles": 4,
+                "name": "regPol",
+                "radius": 1.4142135623730951,
+                "start angle": 45,
+                "type": "14CRegulaPolygon"
+            },
+            "height": 5,
+            "name": "prism3",
+            "type": "6CPrism"
+        },
+        {
+            "basis": {
+                "center": [
+                    0,
+                    0
+                ],
+                "count angles": 4,
+                "name": "regPol",
+                "radius": 1.4142135623730951,
+                "start angle": 45,
+                "type": "14CRegulaPolygon"
+            },
+            "height": 5,
+            "name": "prism4",
+            "type": "6CPrism"
+        },
+        {
+            "basis": {
+                "center": [
+                    0,
+                    0
+                ],
+                "count angles": 4,
+                "name": "regPol",
+                "radius": 1.4142135623730951,
+                "start angle": 45,
+                "type": "14CRegulaPolygon"
+            },
+            "height": 5,
+            "name": "piramid",
+            "type": "8CPyramid"
+        },
+        {
+            "lenght": 3,
+            "name": "dod",
+            "type": "13CDodecahedron"
+        }
+    ],
+    "name": "list",
+    "type": "14CComplexFigure"
+}
