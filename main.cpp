@@ -42,6 +42,9 @@ int main(int argc, char *argv[])
     CRectangle rect(vec2(0,0), 5, 5, "name");
     CTriangle tria(glm::vec2(0,0), vec2(0,1), vec2(1,0), "triangle");
 
+    CFigureParser parserrr("triangle.json");
+    parserrr.save(tria.toJSON());
+
     CRegulaPolygon regPol(vec2(0,0), 45, sqrt(2), 4, "regPol");
     QJsonDocument doc;
     doc.setObject(regPol.toJSON());
@@ -54,13 +57,11 @@ int main(int argc, char *argv[])
     CPrism prism2(pl, 5, "prism2");
     CPrism prism3(pl, 5, "prism3");
     CPrism prism4(pl, 5, "prism4");
-//    prism.setHeight(10);
+
     QJsonDocument doc1;
     doc1.setObject(cp.toJSON());
 
-//    CRegulaPolygon reg(vec2(0,0), 0, 1, 5, "reg");
     CDodecahedron dod(5, "dod");
-//    //glm::rotate()
 
     CComplexFigure list("list");
 
@@ -76,55 +77,9 @@ int main(int argc, char *argv[])
     CFigureParser parser("file.json");
     parser.save(list.toJSON());
 
-//    QJsonDocument document;
-//    std::shared_ptr<CFigure> fig = parser.getObject(dod.toJSON());
-//    document.setObject(fig->toJSON());
-//    saveJson(document, "testParser.json");
-
     MainWindow m;
     m.show();
-//    QStringList listHeaders;
 
-//    listHeaders.insert(0, "name");
-//    listHeaders.insert(1, "type");
-//    listHeaders.insert(2, "edges");
-//    listHeaders.insert(3, "facets");
-//    listHeaders.insert(4, "vertex");
-//    listHeaders.insert(5, "volume");
-//    listHeaders.insert(6, "surface area");
-
-//    QTableWidget table;
-
-//    table.setRowCount(3);
-//    table.setRowHeight(0, 20);
-
-//    table.setColumnCount(7);
-//    table.setColumnWidth(0,50);
-
-//    table.setHorizontalHeaderLabels(listHeaders);
-
-//    QTableWidgetItem item[3][7];
-
-
-//    for(int i(0); i<3; i++)
-//    {
-//        item[i][0].setText(QString::fromStdString(list(i)->getName()));
-//        item[i][1].setText(QString::fromStdString(list(i)->type()));
-//        item[i][2].setText(QString::number(list(i)->countEdge()));
-//        item[i][3].setText(QString::number(list(i)->countFacets()));
-//        item[i][4].setText(QString::number(list(i)->countVertex()));
-//        item[i][5].setText(QString::number(list(i)->volume()));
-//        item[i][6].setText(QString::number(list(i)->surfaceArea()));
-//    }
-
-//    for(int i(0); i<3; i++){
-//        for(int j(0); j<7; j++)
-//        {
-//            item[i][j].setTextAlignment(Qt::AlignCenter);
-//            table.setItem(i,j,&item[i][j]);
-//        }
-//    }
-//    table.show();
 
     return a.exec();
 }

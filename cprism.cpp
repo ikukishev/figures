@@ -96,6 +96,9 @@ std::shared_ptr<CPrism> CPrism::load(const QJsonObject &object)
     if(!object.find("height").value().isDouble())
         return nullptr;
 
+    if(object.find("height").value().toDouble() <= 0)
+        return nullptr;
+
     double height = object.find("height").value().toDouble();
 
 

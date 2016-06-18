@@ -128,6 +128,9 @@ std::shared_ptr<CDodecahedron> CDodecahedron::load(const QJsonObject &object)
     if(!object.find("lenght").value().isDouble())
         return nullptr;
 
+    if(object.find("lenght").value().toDouble() <= 0)
+        return nullptr;
+
     double lenght = object.find("lenght").value().toDouble();
 
     if(object.find("name") == object.end())
