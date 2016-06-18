@@ -22,6 +22,8 @@ public:
     void setHeight(double height);
     static std::shared_ptr<CPrism> load(const QJsonObject& object);
 
+    virtual DrawData getDrawData() const;
+
 protected:
     virtual glm::vec3 getCalculatedVertex(Uint index) const;
 

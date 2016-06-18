@@ -4,6 +4,33 @@
 #include <string>
 #include <cpolygon.h>
 
+class DrawData
+{
+public:
+    DrawData();
+    DrawData(const std::shared_ptr< std::vector<glm::vec3> > &vertexes
+             , const std::shared_ptr< std::vector<glm::vec3> > &colors);
+
+    DrawData(std::vector<glm::vec3> * vertexes
+             , std::vector<glm::vec3> * colors);
+
+    std::shared_ptr< std::vector<glm::vec3> > getVertexes() const
+    {
+        return mVertexes;
+    }
+
+    std::shared_ptr< std::vector<glm::vec3> > getColores() const
+    {
+        return mColors;
+    }
+
+
+private:
+    std::shared_ptr< std::vector<glm::vec3> > mVertexes;
+    std::shared_ptr< std::vector<glm::vec3> > mColors;
+
+};
+
 class CFigure
 {
 public:
@@ -19,7 +46,7 @@ public:
     virtual glm::mat4 getMatrix() const;
 
     virtual glm::vec3 operator[](Uint index) const;    
-    virtual std::shared_ptr<CFigure> operator()(Uint index) const {return nullptr;}
+    //virtual std::shared_ptr<CFigure> operator()(Uint index) const {return nullptr;}
 
     virtual QJsonObject toJSON() const = 0;
     virtual const std::string type() const;
@@ -30,8 +57,10 @@ public:
     virtual Uint countVertex() const= 0;
     virtual Uint countEdge() const = 0; //кол-во ребер
     virtual Uint countFacets() const = 0; //кол-во граней
-    virtual Uint countFigures() const {return 0;}
+
     std::shared_ptr<CPolygon> getBasis() const;
+
+    virtual DrawData getDrawData() const = 0;
 
 protected:
     virtual glm::vec3 getCalculatedVertex(Uint index) const = 0;

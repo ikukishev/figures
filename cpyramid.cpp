@@ -112,3 +112,60 @@ glm::vec3 CPyramid::getCalculatedVertex(Uint index) const
     }
     return getBasis()->toVec3(index);
 }
+
+DrawData CPyramid::getDrawData() const
+{
+    std::shared_ptr< std::vector<glm::vec3> > v( new std::vector<glm::vec3>() );
+    std::shared_ptr< std::vector<glm::vec3> > c( new std::vector<glm::vec3>() );
+
+    std::shared_ptr<CPolygon> base = getBasis();
+    std::shared_ptr<std::vector<glm::vec3> > bt = base->getTriangles();
+
+    for (Uint i = 0; i < bt->size(); i++)
+    {
+        v->push_back(bt->operator [](i));
+        c->push_back(glm::vec3(1.0f, 0.0, 0.0));
+    }
+
+    float colorR, colorG, colorB;
+    glm::vec3 aP, bP, cP;
+    cP = bP;
+    cP.z = (float)mHeight;
+
+    for (Uint i = 0; i < base->countAngles()-1; i++)
+    {
+        aP = base->toVec3(i);
+        bP = base->toVec3(i+1);
+
+
+        v->push_back(aP);
+        v->push_back(bP);
+        v->push_back(cP);
+
+        colorR = (float)rand()/RAND_MAX;
+        colorG = (float)rand()/RAND_MAX;
+        colorB = (float)rand()/RAND_MAX;
+
+        c->push_back(glm::vec3(colorR, colorG, colorB));
+        c->push_back(glm::vec3(colorR, colorG, colorB));
+        c->push_back(glm::vec3(colorR, colorG, colorB));
+
+    }
+
+    aP = base->toVec3(0);
+    bP = base->toVec3(base->countAngles()-1);
+
+    v->push_back(aP);
+    v->push_back(bP);
+    v->push_back(cP);
+
+    colorR = (float)rand()/RAND_MAX;
+    colorG = (float)rand()/RAND_MAX;
+    colorB = (float)rand()/RAND_MAX;
+
+    c->push_back(glm::vec3(colorR, colorG, colorB));
+    c->push_back(glm::vec3(colorR, colorG, colorB));
+    c->push_back(glm::vec3(colorR, colorG, colorB));
+
+    return DrawData(v,c);
+}

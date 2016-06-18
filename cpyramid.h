@@ -22,6 +22,8 @@ public:
     double getHeight() const;
     void setHeight(double height);
 
+    virtual DrawData getDrawData() const;
+
 protected:
     glm::vec3 getCalculatedVertex(Uint index) const;
 

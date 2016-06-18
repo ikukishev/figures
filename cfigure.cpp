@@ -42,3 +42,50 @@ double CFigure::calculatedArea(const glm::vec3 &a, const glm::vec3 &b, const glm
     double pPer = (distance(a, b)+distance(b, c)+distance(c, a))/2.0;
     return sqrt((pPer*(pPer-distance(a,b))*(pPer-distance(b,c)))*(pPer-distance(c,a)));
 }
+
+DrawData::DrawData()
+    : mVertexes( nullptr )
+    , mColors( nullptr )
+{
+
+}
+
+DrawData::DrawData(const std::shared_ptr<std::vector<glm::vec3> > &vertexes, const std::shared_ptr<std::vector<glm::vec3> > &colors)
+{
+
+    bool ok = false;
+    if (vertexes.get() != nullptr && colors.get() != nullptr)
+    {
+        if ( vertexes->size() == colors->size() )
+        {
+            ok = true;
+            mVertexes = vertexes;
+            mColors = colors;
+        }
+    }
+    if (!ok)
+    {
+        mVertexes = nullptr;
+        mColors = nullptr;
+    }
+
+}
+
+DrawData::DrawData(std::vector<glm::vec3> *vertexes, std::vector<glm::vec3> *colors)
+{
+    bool ok = false;
+    if (vertexes != nullptr && colors != nullptr)
+    {
+        if ( vertexes->size() == colors->size() )
+        {
+            ok = true;
+            mVertexes = std::shared_ptr<std::vector<glm::vec3> >(vertexes);
+            mColors = std::shared_ptr<std::vector<glm::vec3> >(colors);
+        }
+    }
+    if (!ok)
+    {
+        mVertexes = nullptr;
+        mColors = nullptr;
+    }
+}

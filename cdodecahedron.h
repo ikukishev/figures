@@ -41,6 +41,7 @@ public:
     virtual Uint countVertex() const;
     virtual Uint countEdge() const;
     virtual Uint countFacets() const;
+    virtual DrawData getDrawData() const;
 
     double getLenght() const;
 

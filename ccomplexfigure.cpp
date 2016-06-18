@@ -47,6 +47,8 @@ std::shared_ptr<CComplexFigure> CComplexFigure::load(const QJsonObject &object)
 
     QJsonArray arr;
     arr=object.find("figures").value().toArray();
+    if (arr.size() == 0)
+        return nullptr;
 
     std::vector<std::shared_ptr<CFigure> > fig;
 
@@ -79,9 +81,14 @@ bool CComplexFigure::deleteFigure(uint pos)
 }
 
 
-std::shared_ptr<CFigure> CComplexFigure::operator ()(Uint index) const
+std::shared_ptr<CFigure>& CComplexFigure::operator ()(Uint index)
 {
     return mFigures[index];
+}
+
+DrawData CComplexFigure::getDrawData() const
+{
+    return DrawData();
 }
 
 QJsonObject CComplexFigure::toJSON() const

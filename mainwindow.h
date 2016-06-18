@@ -1,10 +1,14 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
+#include "cgldrawer.h"
 #include "ccomplexfigure.h"
+
+#include <QMainWindow>
 #include <QTableWidgetItem>
 #include <QMenu>
+#include <QListWidgetItem>
+
 
 namespace Ui {
 class MainWindow;
@@ -25,6 +29,9 @@ public slots:
     void editFigureDialog();
     void addFigureDialog();
     void deleteFigureAction();
+    void currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+    void currentRowChanged(int index);
+    void itemSelectionChanged();
 private slots:
     void on_actionAbout_triggered();
 
@@ -34,12 +41,19 @@ private slots:
 
     void on_actionSave_triggered();
 
+protected:
+    virtual void closeEvent(QCloseEvent * ev);
+    virtual void showEvent(QShowEvent * ev);
 private:
     Ui::MainWindow *ui;
     CComplexFigure listFigure;
     QTableWidgetItem item[6];
+    CGLDrawer *glDrawer;
+
 
     QAction* editAction;
+    QAction* addAction;
+    QAction* deleteAction;
     QMenu *mMenuList;
     bool itemListPressed;
 };

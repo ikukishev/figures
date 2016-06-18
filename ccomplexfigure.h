@@ -10,7 +10,7 @@ public:
     CComplexFigure();
     CComplexFigure(const string& name);
 
-    virtual uint countFigures() const {return mFigures.size();}
+    virtual Uint countFigures() const {return mFigures.size();}
 
     static std::shared_ptr<CComplexFigure> load(const QJsonObject& object);
     virtual QJsonObject toJSON() const;
@@ -19,7 +19,9 @@ public:
     bool replaceFigure(uint index, std::shared_ptr<CFigure> figure);
     bool deleteFigure(uint pos);
 
-    std::shared_ptr<CFigure> operator ()(Uint index) const;
+    std::shared_ptr<CFigure>& operator ()(Uint index) ;
+
+    virtual DrawData getDrawData() const;
 
 private:
     std::vector<std::shared_ptr<CFigure>> mFigures;

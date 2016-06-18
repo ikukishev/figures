@@ -110,3 +110,88 @@ std::shared_ptr<CPrism> CPrism::load(const QJsonObject &object)
     return std::shared_ptr<CPrism>(new CPrism(basis, height, name));
 }
 
+DrawData CPrism::getDrawData() const
+{
+    std::shared_ptr< std::vector<glm::vec3> > v( new std::vector<glm::vec3>() );
+    std::shared_ptr< std::vector<glm::vec3> > c( new std::vector<glm::vec3>() );
+
+    std::shared_ptr<CPolygon> base = getBasis();
+    std::shared_ptr<std::vector<glm::vec3> > bt = base->getTriangles();
+    for (Uint i = 0; i < bt->size(); i++)
+    {
+        v->push_back(bt->operator [](i));
+        c->push_back(glm::vec3(1.0f, 0.0, 0.0));
+    }
+
+
+    float colorR, colorG, colorB;
+    glm::vec3 aP, bP, cP, dP;
+
+    for (Uint i = 0; i < base->countAngles()-1; i++)
+    {
+        aP = base->toVec3(i);
+        bP = base->toVec3(i+1);
+        cP = bP;
+        cP.z = (float)mHeight;
+        dP = aP;
+        dP.z = (float)mHeight;
+
+        v->push_back(aP);
+        v->push_back(bP);
+        v->push_back(cP);
+
+        v->push_back(aP);
+        v->push_back(cP);
+        v->push_back(dP);
+
+        colorR = (float)rand()/RAND_MAX;
+        colorG = (float)rand()/RAND_MAX;
+        colorB = (float)rand()/RAND_MAX;
+
+        c->push_back(glm::vec3(colorR, colorG, colorB));
+        c->push_back(glm::vec3(colorR, colorG, colorB));
+        c->push_back(glm::vec3(colorR, colorG, colorB));
+
+        c->push_back(glm::vec3(colorR, colorG, colorB));
+        c->push_back(glm::vec3(colorR, colorG, colorB));
+        c->push_back(glm::vec3(colorR, colorG, colorB));
+    }
+
+    aP = base->toVec3(0);
+    bP = base->toVec3(base->countAngles()-1);
+    cP = bP;
+    cP.z = (float)mHeight;
+    dP = aP;
+    dP.z = (float)mHeight;
+
+    v->push_back(aP);
+    v->push_back(bP);
+    v->push_back(cP);
+
+    v->push_back(aP);
+    v->push_back(cP);
+    v->push_back(dP);
+
+    colorR = (float)rand()/RAND_MAX;
+    colorG = (float)rand()/RAND_MAX;
+    colorB = (float)rand()/RAND_MAX;
+
+    c->push_back(glm::vec3(colorR, colorG, colorB));
+    c->push_back(glm::vec3(colorR, colorG, colorB));
+    c->push_back(glm::vec3(colorR, colorG, colorB));
+
+    c->push_back(glm::vec3(colorR, colorG, colorB));
+    c->push_back(glm::vec3(colorR, colorG, colorB));
+    c->push_back(glm::vec3(colorR, colorG, colorB));
+
+    for (Uint i = 0; i < bt->size(); i++)
+    {
+        glm::vec3 lVec = bt->operator [](i);
+        lVec.z=(float)mHeight;
+        v->push_back(lVec);
+        c->push_back(glm::vec3(1.0f, 1.0f, 0.0));
+    }
+
+    return DrawData(v,c);
+}
+

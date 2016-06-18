@@ -41,6 +41,7 @@ public:
 
     virtual double area() const = 0;
     virtual double perimeter () const = 0;
+    virtual std::shared_ptr< std::vector<glm::vec3> > getTriangles() const;
 
 private:
     CPolygon();

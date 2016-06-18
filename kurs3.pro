@@ -4,9 +4,9 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui opengl
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets opengl
 
 TARGET = kurs3
 TEMPLATE = app
@@ -26,7 +26,9 @@ SOURCES += main.cpp\
     cfigureparser.cpp \
     cprism.cpp \
     cpyramid.cpp \
-    editdialog.cpp
+    editdialog.cpp \
+    openglwindow.cpp \
+    cgldrawer.cpp
 
 HEADERS  += mainwindow.h \
     cpolygon.h \
@@ -41,7 +43,9 @@ HEADERS  += mainwindow.h \
     cfigureparser.h \
     cprism.h \
     cpyramid.h \
-    editdialog.h
+    editdialog.h \
+    openglwindow.h \
+    cgldrawer.h
 
 FORMS    += mainwindow.ui \
     aboutdialog.ui \
