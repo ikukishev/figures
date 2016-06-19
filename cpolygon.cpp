@@ -1,7 +1,5 @@
 #include "cpolygon.h"
 
-
-
 CPolygon::CPolygon(Uint countAngles, const std::string &name): mName(name)
 {
     mAngles = vector<vec2>(countAngles);
