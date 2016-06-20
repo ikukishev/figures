@@ -32,6 +32,7 @@ public slots:
     void currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
     void currentRowChanged(int index);
     void itemSelectionChanged();
+
 private slots:
     void on_actionAbout_triggered();
 
