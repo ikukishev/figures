@@ -74,15 +74,7 @@ public:
 
         const std::type_info& typeInfo = typeid(T);
         std::string name( typeInfo.name() );
-        /*
-        std::map< std::string, void* >::iterator it = sPointers.find(name);
-        if (it == sPointers.end() )
-        {
-            //sPointers[ name ] = (void*)(loader); //static_cast<tLoader>( T::load );
-            //std::cout << __FUNCTION__ << " : " << name << std::endl;
-            sPointers.insert(std::pair<std::string, void*>(name, (void*)(loader)));
-        }
-        */
+
         insert(name, (void*)(loader));
 
         return name;

@@ -8,27 +8,8 @@ class CDodecahedron: public CFigure
 {
    DECLARE_FIGURE
 private:
-    class CPlaneOfSymmetry
-    {
-    public:
-        CPlaneOfSymmetry(const CRegulaPolygon& pentagon);
-
-        glm::vec3 operator[](uint index) const;
-        CPlaneOfSymmetry& transform(glm::mat4 matrix);
-
-    private:
-        vector<glm::vec3> mPoints;
-
-        double distanceSymm(const vec2& a, const vec2& b) const
-        {
-             return sqrt((b.x-a.x)*(b.x-a.x)+(b.y-a.y)*(b.y-a.y));
-        }
-
-        glm::vec2 setRightPosition(glm::vec2 point, double angle);
-    };
-
     double mLenght;
-    vector<glm::vec3> mPoints;
+    virtual glm::vec3 operator [](Uint index) const;
 
 public:
     CDodecahedron(double lenght, const std::string& name);
@@ -36,8 +17,7 @@ public:
 
     virtual double surfaceArea() const;
     virtual double volume() const;
-    virtual glm::vec3 operator [](Uint index) const;
-    virtual QJsonObject toJSON() const;
+   virtual QJsonObject toJSON() const;
     virtual Uint countVertex() const;
     virtual Uint countEdge() const;
     virtual Uint countFacets() const;
