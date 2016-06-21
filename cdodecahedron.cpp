@@ -1,7 +1,12 @@
 #include "cdodecahedron.h"
 #include "glm/gtc/matrix_transform.hpp"
 
+#ifndef M_PI
+#define M_PI 3.1415926535897932384626433832795
+#endif
+
 REGISTER_FIGURE(CDodecahedron)
+
 inline bool printCDodecahedron()
 {
     std::cout<<"//CDodecahedron" << " ";
