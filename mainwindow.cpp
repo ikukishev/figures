@@ -51,13 +51,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->tableWidget->setVerticalHeaderLabels(listHeaders);
     ui->tableWidget->setHorizontalHeaderLabels(lh);
-    //ui->tableWidget->set
 
     ui->tableWidget->setContextMenuPolicy(Qt::ActionsContextMenu);
 
-    //connect(ui->listWidget, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(changeInfoTable()));
-    //connect(ui->listWidget, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(currentItemChanged(QListWidgetItem*,QListWidgetItem*)));
-    //connect(ui->listWidget, SIGNAL(currentRowChanged(int)), this, SLOT(currentRowChanged()));
     connect(ui->listWidget, SIGNAL(itemSelectionChanged()), this, SLOT(itemSelectionChanged()));
     glDrawer->show();
 
@@ -72,14 +68,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 {
-//    for(uint i(0); i < ui->listWidget->count(); i++)
-//        if(ui->listWidget->isItemSelected(ui->listWidget->item(i)))
-//        {
-//            if( mMenuList)
-//            {
-//                editAction->setVisible(1);
-//            }
-//        }
+
     qDebug() << ui->listWidget->currentItem();
     if ( ui->listWidget->currentRow() == -1)
     {
@@ -149,13 +138,6 @@ void MainWindow::changeInfoTable()
 
     glDrawer->setDrawData(listFigure(index)->getDrawData());
 
-
-//    for(int i(0); i<6; i++){
-//            item[i].setTextAlignment(Qt::AlignCenter);
-//            ui->tableWidget->setItem(0,i,&item[i]);
-//    }
-//    //QMessageBox::information(this, "test", "test");
-        //ui->tableWidget->repaint();
 }
 
 void MainWindow::editFigureDialog()
@@ -180,8 +162,8 @@ void MainWindow::editFigureDialog()
     std::shared_ptr<CFigure> testing=ed.getObjectFigure();
 
     if(testing == nullptr) return;
-    listFigure(index) = testing;
-
+    if(!listFigure.replaceFigure(index, testing)) return;
+    //listFigure(index)=testing;
     ui->listWidget->currentItem()->setText(QString::fromStdString(listFigure(index)->getName()));
 
     changeInfoTable();

@@ -72,7 +72,7 @@ std::shared_ptr<CRectangle> CRectangle::load(const QJsonObject &object)
    if(!object.find("length").value().isDouble())
       return nullptr;
 
-   if(!object.find("length").value().toDouble() <= 0)
+   if(object.find("length").value().toDouble() <= 0)
       return nullptr;
 
    length=object.find("length").value().toDouble();

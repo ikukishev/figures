@@ -1,5 +1,6 @@
 #include "ccomplexfigure.h"
 #include "QJsonArray"
+#include <QDebug>
 
 REGISTER_FIGURE(CComplexFigure)
 
@@ -54,7 +55,10 @@ std::shared_ptr<CComplexFigure> CComplexFigure::load(const QJsonObject &object)
 
     for(uint i(0); i<arr.size(); i++)
     {
-        fig.push_back( CFigureRegistry::get<CFigure>(arr[i].toObject()["type"].toString().toStdString() )( arr[i].toObject() ));
+       std::shared_ptr<CFigure> lFigure = CFigureRegistry::get<CFigure>(arr[i].toObject()["type"].toString().toStdString() )( arr[i].toObject() );
+       qDebug() << arr[i].toObject()["type"].toString();
+       qDebug() << arr[i].toObject()["name"].toString();
+        fig.push_back( lFigure);
     }
 
     CComplexFigure list(name);
@@ -66,18 +70,19 @@ std::shared_ptr<CComplexFigure> CComplexFigure::load(const QJsonObject &object)
 
 bool CComplexFigure::addFigure(std::shared_ptr<CFigure> figure)
 {
+    if(figure == nullptr) return false;
     for(uint i(0); i<countFigures(); i++)
-        if(figure->getName() == mFigures[i]->getName()) return 0;
+        if(figure->getName() == mFigures[i]->getName()) return false;
 
     mFigures.push_back(figure);
-    return 1;
+    return true;
 }
 
 bool CComplexFigure::deleteFigure(uint pos)
 {
-    if(pos >= countFigures()) return 0;
+    if(pos >= countFigures()) return false;
     mFigures.erase(mFigures.begin()+pos);
-    return 1;
+    return true;
 }
 
 
@@ -107,9 +112,14 @@ QJsonObject CComplexFigure::toJSON() const
 
 bool CComplexFigure::replaceFigure(uint index, std::shared_ptr<CFigure> figure)
 {
-    if(index>=countFigures()) return 0;
+    if(index>=countFigures()) return false;
+
+    for(uint i(0); i<countFigures(); i++)
+        if(figure->getName() == mFigures[i]->getName())
+           if(index != i)return false;
+
     mFigures[index]=figure;
-    return 1;
+    return true;
 }
 
 Uint CComplexFigure::countVertex() const {return 0;}

@@ -45,7 +45,7 @@ std::shared_ptr<CRegulaPolygon> CRegulaPolygon::load(const QJsonObject &object)
     if(!object.find("radius").value().isDouble())
         return nullptr;
 
-    if(object.find("radius").value().toDouble() < 0)
+    if(object.find("radius").value().toDouble() <= 0)
         return nullptr;
 
     double radius = object.find("radius").value().toDouble();
@@ -67,7 +67,7 @@ std::shared_ptr<CRegulaPolygon> CRegulaPolygon::load(const QJsonObject &object)
     if(object.find("count angles").value().toDouble() < 3)
         return nullptr;
 
-    int cAngles = object.find("count angles").value().toInt();
+    int cAngles = (int)object.find("count angles").value().toDouble();
 
     if(object.find("center")==object.end())
         return nullptr;
